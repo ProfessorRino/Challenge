@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="quote"
+            type="com.example.challenge.CurrencyQuote" />
+        <variable
+            name="model"
+            type="com.example.challenge.CurrencyViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemContainer"
+        android:paddingLeft="5dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/amountText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@{String.format(`%,.4f`, (model.currentAmount / model.selectedSourceCurrency.usdRate  * quote.usdRate))}"
+            app:layout_constraintBottom_toTopOf="@id/fullNameText"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fullNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{quote.targetHandle + ` (` + quote.fullName + `)`}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/amountText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Challenge</string>
+    <string name="pickerTitle">Choose source currency</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="loading">LOADING...</string>
+    <string name="connectionToast">Connection problem, try restarting</string>
+    <string name="equals">equals:</string>
+    <string name="dropDown">▼</string>
+</resources>
