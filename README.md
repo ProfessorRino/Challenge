@@ -5,4 +5,4 @@
 * Room for persistence<br/>
 * Data Binding for UI components<br/>
 
-
+To run the App, please replace "FREE_KEY_GOES_HERE" with your API Access Key
