@@ -118,7 +118,6 @@ class MainActivity : AppCompatActivity() {
                 model.getRemoteLive(listResponse.currencies).observe(this, { liveResponse ->
                     if (liveResponse == null || !liveResponse.success || liveResponse.quotes.isEmpty()) {
                         binding.progressBar.visibility = View.GONE
-                        binding.equals.visibility = View.VISIBLE
                         showErrorToast()
                     }
                 })
@@ -140,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         model.getLocalQuotesLiveData().observe(this, { newCurrencies ->
             if (currencies != newCurrencies) {
                 binding.progressBar.visibility = View.GONE
+                binding.equals.visibility = View.VISIBLE
                 currencies = newCurrencies
                 updatePicker(currencies)
                 if (currencies.isNotEmpty()) {
