@@ -33,12 +33,13 @@ android {
         }
     }
 
-    //Should be under buildfeatures but not working from there
-    dataBinding {
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding {
+            enabled = true
+        }
+        viewBinding {
+            enabled = true
+        }
     }
 
     compileOptions {
