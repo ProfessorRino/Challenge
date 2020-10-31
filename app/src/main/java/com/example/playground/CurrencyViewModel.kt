@@ -1,4 +1,4 @@
-package com.example.challenge
+package com.example.playground
 
 import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject

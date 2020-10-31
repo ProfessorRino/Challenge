@@ -1,4 +1,4 @@
-package com.example.challenge
+package com.example.playground
 
 import android.content.Context
 import android.content.res.Configuration.ORIENTATION_LANDSCAPE
@@ -18,7 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.challenge.databinding.ActivityMainBinding
+import com.example.playground.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

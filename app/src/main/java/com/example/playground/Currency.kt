@@ -1,4 +1,4 @@
-package com.example.challenge
+package com.example.playground
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

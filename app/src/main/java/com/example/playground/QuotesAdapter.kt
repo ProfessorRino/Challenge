@@ -1,12 +1,11 @@
-package com.example.challenge
+package com.example.playground
 
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.challenge.databinding.QuoteItemBinding
+import com.example.playground.databinding.QuoteItemBinding
 
 class QuotesAdapter(
     private val currencies: List<CurrencyQuote>,

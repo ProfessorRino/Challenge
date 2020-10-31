@@ -1,4 +1,4 @@
-package com.example.challenge
+package com.example.playground
 
 import junit.framework.TestCase
 

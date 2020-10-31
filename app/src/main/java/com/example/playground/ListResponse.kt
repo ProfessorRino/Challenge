@@ -1,4 +1,4 @@
-package com.example.challenge
+package com.example.playground
 
 data class ListResponse(
     val success : Boolean,

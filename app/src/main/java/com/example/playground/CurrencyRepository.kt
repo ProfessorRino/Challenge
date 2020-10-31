@@ -1,4 +1,4 @@
-package com.example.challenge
+package com.example.playground
 
 import android.content.Context
 import android.util.Log
@@ -28,7 +28,7 @@ class CurrencyRepository @Inject constructor(
     companion object {
 
         const val BASE = "http://api.currencylayer.com"
-        const val KEY = "FREE_KEY_GOES_HERE"
+        const val KEY = "4ad7db51e1b38e2ae6f3c9e0385762db"
         const val LIST = "list"
         const val LIVE = "live"
 

@@ -6,10 +6,10 @@
     <data>
         <variable
             name="quote"
-            type="com.example.challenge.CurrencyQuote" />
+            type="com.example.playground.CurrencyQuote" />
         <variable
             name="model"
-            type="com.example.challenge.CurrencyViewModel" />
+            type="com.example.playground.CurrencyViewModel" />
 
     </data>
 
