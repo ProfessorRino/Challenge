@@ -28,7 +28,7 @@ class CurrencyRepository @Inject constructor(
     companion object {
 
         const val BASE = "http://api.currencylayer.com"
-        const val KEY = "4ad7db51e1b38e2ae6f3c9e0385762db"
+        const val KEY = "YOUR_ACCESS_KEY_GOES_HERE"
         const val LIST = "list"
         const val LIVE = "live"
 
