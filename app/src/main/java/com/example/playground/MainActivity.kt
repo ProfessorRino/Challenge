@@ -39,9 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private val model: CurrencyViewModel by viewModels()
-    private lateinit var adapter: QuotesAdapter
     private lateinit var binding: ActivityMainBinding
-    private val pickerList: MutableList<String>? = mutableListOf()
+    private val pickerList: MutableList<String> = mutableListOf()
     private var spanCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                     0
                 } else {
                     model.selectedSourceCurrency?.value!!.id - 1
-                }, pickerList!!
+                }, pickerList
             )
             dialog.show(supportFragmentManager, null)
 
@@ -110,29 +109,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        model.getRemoteList().observe(this, { listResponse ->
-            if (listResponse == null || !listResponse.success || listResponse.currencies.isEmpty()) {
-                binding.progressBar.visibility = View.GONE
-                showErrorToast()
+        model.getRemoteQuotes().observe(this, { response ->
+            if (response != null) {
+                val listResponse = response.first
+                val liveResponse = response.second
+                if (listResponse == null || !listResponse.success || listResponse.currencies.isEmpty()
+                    || liveResponse == null || !liveResponse.success || liveResponse.quotes.isEmpty()
+                ) {
+                    showErrorToast()
+                }
             } else {
-                model.getRemoteLive(listResponse.currencies).observe(this, { liveResponse ->
-                    if (liveResponse == null || !liveResponse.success || liveResponse.quotes.isEmpty()) {
-                        binding.progressBar.visibility = View.GONE
-                        showErrorToast()
-                    }
-                })
+                showErrorToast()
             }
         })
 
         updateJob = lifecycleScope.launch(Dispatchers.IO) {
             while (isActive) {
                 binding.progressBar.visibility = View.VISIBLE
-                model.getRemoteList()
+                model.getRemoteQuotes()
                 TimeUnit.MINUTES.sleep(30)
             }
         }
 
-        model.selectedSourceCurrency?.observe(this, Observer {
+        model.selectedSourceCurrency?.observe(this, {
             updateRecyclerView(QuotesAdapter(currencies, model, spanCount, recyclerView.context))
         })
 
@@ -169,7 +168,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updatePicker(currencies: List<CurrencyQuote>) {
         for (currency in currencies) {
-            if (!pickerList!!.contains(currency.targetHandle + ": " + currency.fullName)) {
+            if (!pickerList.contains(currency.targetHandle + ": " + currency.fullName)) {
                 pickerList.add(currency.targetHandle + ": " + currency.fullName)
             }
         }
@@ -178,5 +177,6 @@ class MainActivity : AppCompatActivity() {
     private fun showErrorToast() {
         Toast.makeText(this, getString(R.string.connectionToast), Toast.LENGTH_LONG).show()
         binding.fullNameText.text=""
+        binding.progressBar.visibility = View.GONE
     }
 }

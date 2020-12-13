@@ -21,17 +21,13 @@ class CurrencyViewModel @ViewModelInject constructor (
 
     private val repository: CurrencyRepository = CurrencyRepository(context)
 
-    fun getRemoteList() : MutableLiveData<ListResponse> {
-      return repository.getRemoteList()
-    }
-
-    fun getRemoteLive(currencies: Map<String, String>) : MutableLiveData<LiveResponse> {
-        return repository.getRemoteLive(currencies)
+    fun getRemoteQuotes() : MutableLiveData<Pair<ListResponse?, LiveResponse?>> {
+        return repository.getRemoteQuotes()
     }
 
     fun updateDateTime(currencyQuote: CurrencyQuote) {
             val format = SimpleDateFormat("yyyy/MM/dd', 'HH:mm:ss'h'", Locale.getDefault())
-            val date = Date((currencyQuote.timeStamp)!! * 1000.toLong())
+            val date = Date((currencyQuote.timeStamp) * 1000.toLong())
             dateTime.postValue(format.format(date))
     }
 

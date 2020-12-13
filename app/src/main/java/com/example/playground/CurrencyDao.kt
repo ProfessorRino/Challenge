@@ -18,28 +18,23 @@ interface CurrencyDao {
     @Query("Select * from currencyquotes")
     fun getQuotesLiveData(): LiveData<List<CurrencyQuote>>
 
-    @Update(entity = CurrencyQuote::class)
-    fun updateRate(update: RateUpdate)
-
-    @Entity(tableName = "quotes")
-    class RateUpdate(
-        val id: Int,
-        var timeStamp: Int?,
-        var usdRate: Float?
-    )
-
     @Transaction
-    fun upsertCurrencyQuotes(currencies: Map<String, String>, timeStamp: Int, quotes: Map<String, Float>){
+    fun insertCurrencyQuotes(
+        currencies: Map<String, String>,
+        timeStamp: Int,
+        quotes: Map<String, Float>
+    ) {
         var id = 1
-        for (pair in currencies) {
-            val currency = CurrencyQuote(id, pair.key, pair.value,null,null)
-            insert(currency)
-            id += 1
-        }
-        id = 1
         for (quote in quotes) {
-            val rateUpdate = RateUpdate(id,  timeStamp, quote.value)
-            updateRate(rateUpdate)
+            insert(
+                CurrencyQuote(
+                    id,
+                    quote.key.substring(3),
+                    currencies.get(quote.key.substring(3)).toString(),
+                    timeStamp,
+                    quote.value
+                )
+            )
             id += 1
         }
     }

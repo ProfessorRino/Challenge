@@ -9,6 +9,6 @@ data class CurrencyQuote(
     val id: Int,
     val targetHandle: String,
     val fullName: String,
-    val timeStamp: Int?,
-    val usdRate: Float?
+    val timeStamp: Int,
+    val usdRate: Float
 )

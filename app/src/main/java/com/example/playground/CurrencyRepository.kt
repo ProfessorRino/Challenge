@@ -28,7 +28,7 @@ class CurrencyRepository @Inject constructor(
     companion object {
 
         const val BASE = "http://api.currencylayer.com"
-        const val KEY = "YOUR_ACCESS_KEY_GOES_HERE"
+        const val KEY = "FREE_KEY_GOES_HERE"
         const val LIST = "list"
         const val LIVE = "live"
 
@@ -65,57 +65,44 @@ class CurrencyRepository @Inject constructor(
         return currencyDao.getQuotesLiveData()
     }
 
-    fun getRemoteList(): MutableLiveData<ListResponse> {
-        val listResponse: MutableLiveData<ListResponse> = MutableLiveData()
-        disposable =
-            listService.getCurrencyMap(KEY)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(
-                    { result -> listResponse.postValue(result) },
-                    { error ->
-                        Log.e("", "endpoint list failed ", error)
-                        listResponse.postValue(null)
-                    }
-                )
-        return listResponse
-    }
-
-    fun getRemoteLive(currencies: Map<String, String>): MutableLiveData<LiveResponse> {
-        val liveResponse: MutableLiveData<LiveResponse> = MutableLiveData()
-        disposable = listService.getQuotes(KEY)
+    fun getRemoteQuotes(): MutableLiveData<Pair<ListResponse?, LiveResponse?>> {
+        val liveResponseLiveData: MutableLiveData<Pair<ListResponse?, LiveResponse?>> = MutableLiveData()
+        var liveResponseLive: LiveResponse? = null
+        var listResponseLive: ListResponse? = null
+        disposable = listService.getCurrencyMap(KEY).zipWith(listService.getQuotes(KEY),
+            { listResponse: ListResponse, liveResponse: LiveResponse ->
+                if (listResponse.success && liveResponse.success && liveResponse.source == "USD"
+                    && isConsistent(listResponse.currencies, liveResponse.quotes)
+                ) {
+                    listResponseLive = listResponse
+                    liveResponseLive = liveResponse
+                    currencyDao.insertCurrencyQuotes(
+                        listResponse.currencies,
+                        liveResponse.timestamp,
+                        liveResponse.quotes
+                    )
+                }
+            }
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe(
                 { result ->
-                    if (result.success && result.source == "USD" && isConsistent(
-                            currencies,
-                            result.quotes
-                        )
-                    ) {
-                        currencyDao.upsertCurrencyQuotes(
-                            currencies,
-                            result.timestamp,
-                            result.quotes
-                        )
-                        liveResponse.postValue(result)
-                    } else {
-                        liveResponse.postValue(null)
-                    }
+                   liveResponseLiveData.postValue(Pair(listResponseLive, liveResponseLive))
                 },
                 { error ->
-                    Log.e("", "endpoint live failed ", error)
-                    liveResponse.postValue(null)
+                    Log.e("", "connection problem ", error)
+                    liveResponseLiveData.postValue(null)
                 }
             )
-        return liveResponse
+        return liveResponseLiveData
     }
 
     fun dispose() {
         disposable?.dispose()
     }
 
-    fun isConsistent(currencies: Map<String, String>, quotes: Map<String, Float>): Boolean {
+    private fun isConsistent(currencies: Map<String, String>, quotes: Map<String, Float>): Boolean {
         if (currencies.size != quotes.size) {
             return false
         }
