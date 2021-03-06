@@ -5,7 +5,7 @@ Currency converter using [currencylayer's free plan](https://currencylayer.com/s
 An amount of the chosen source currency is automatically converted to all available currencies based on the current daily rate.
 Floating point error is not handled.
 #### 2. Setup
-To run the App, sign up to free plan and replace "FREE_KEY_GOES_HERE" with your own API Access Key
+To run the App, sign up to free plan and replace "FREE_KEY_GOES_HERE" with your own API Access Key before building. 
 #### 3. Functionality
 ##### a) Control Section
 - Input Field: Takes the amount of the source currency
