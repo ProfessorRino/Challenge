@@ -15,4 +15,5 @@ To run the App, sign up to free plan and replace "FREE_KEY_GOES_HERE" with your 
 ##### b) List Area
 Displays list of all available target currency and their converted amounproperly amounts. 
 Floating point error is not properly handled.
-![alt text]("screenshot")
+![alt text](https://github.com/ProfessorRino/Playground/blob/master/challengeScreen1.png "screenshot1")
+![alt text](https://github.com/ProfessorRino/Playground/blob/master/challengeSourceSelect.png "screenshot2")
