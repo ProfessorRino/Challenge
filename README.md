@@ -13,7 +13,9 @@ To run the App, sign up to free plan and replace "FREE_KEY_GOES_HERE" with your 
 - Currency Spinner: Opens when pressing ▼ for selection of source currency
 - Text area: Currently selected source in full text, timestamp of current daily rate
 ##### b) List Area
-Displays list of all available target currency and their converted amounproperly amounts. 
-Floating point error is not properly handled.
+Displays list of all available target currencies (168) and their converted amounts. 
+Floating point error is not properly handled.  
+
+
 ![alt text](https://github.com/ProfessorRino/Playground/blob/master/challengeScreen1.png "screenshot1")
 ![alt text](https://github.com/ProfessorRino/Playground/blob/master/challengeSourceSelect.png "screenshot2")
