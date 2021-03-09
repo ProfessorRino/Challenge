@@ -9,15 +9,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CurrencyViewModel @ViewModelInject constructor (
+class CurrencyViewModel @ViewModelInject constructor(
     @ApplicationContext
-    private val context: Context)
-    : ViewModel() {
+    context: Context
+) : ViewModel() {
 
     var selectedSourceCurrency: MutableLiveData<CurrencyQuote>? =
         MutableLiveData(CurrencyQuote(1, "", "LOADING...", 0, 0f))
     var currentAmount: MutableLiveData<Float> = MutableLiveData(0f)
-    var dateTime : MutableLiveData<String> = MutableLiveData("")
+    var dateTime: MutableLiveData<String> = MutableLiveData("")
+
 
     private val repository: CurrencyRepository = CurrencyRepository(context)
 

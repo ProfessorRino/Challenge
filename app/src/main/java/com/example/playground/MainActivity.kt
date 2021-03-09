@@ -13,7 +13,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -127,9 +126,10 @@ class MainActivity : AppCompatActivity() {
             while (isActive) {
                 binding.progressBar.visibility = View.VISIBLE
                 model.getRemoteQuotes()
-                TimeUnit.MINUTES.sleep(30)
+                TimeUnit.MINUTES.sleep(90)
             }
         }
+        updateJob!!.start()
 
         model.selectedSourceCurrency?.observe(this, {
             updateRecyclerView(QuotesAdapter(currencies, model, spanCount, recyclerView.context))
