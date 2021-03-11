@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Challenge</string>
+    <string name="app_name">FxConverter</string>
     <string name="pickerTitle">Choose source currency</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
